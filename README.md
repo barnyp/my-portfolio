@@ -28,16 +28,6 @@ This portfolio website showcases professional information, skills, and blog cont
 - Google Fonts
 - Responsive Images
 
-## Project Structure
-
-portfolio-website/
-├── css/
-│ └── style.css
-├── img/
-│ └── blog-*.jpg
-├── index.html
-└── README.md
-
 # Usage
 Customize the content in index.html to add your personal information
 
@@ -85,4 +75,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # Contact
 Name - Paul Barnabas
-Project Link: https://github.com/barnyp/my-portfolio
+
+Project Link: https://barnyp.github.io/my-portfolio/

@@ -1,13 +1,27 @@
 ---
-title: 'My First Post'
-date: '2024-01-01'
-summary: 'This is the summary of my first blog post. It is a great post.'
-coverImage: '/img/about.jpg'
-excerpt: 'This is the summary of my first blog post. It is a great post.'
+title: 'Getting Started with Data Analytics'
+date: '2024-01-15'
+summary: 'A comprehensive guide to starting your journey in data analytics and business intelligence.'
+coverImage: '/img/blog-1.jpg'
+excerpt: 'Discover the fundamental concepts, tools, and techniques that will help you excel in the field of data analytics.'
 ---
 
-This is the main content of my first blog post. I can write **bold** text, *italic* text, and even `code`.
+# Getting Started with Data Analytics
 
-- List item 1
-- List item 2
-- List item 3 
+Data analytics is the science of analyzing raw data to make conclusions about information. It's a powerful field that combines **statistical analysis**, *domain expertise*, and modern technology to unlock insights.
+
+## Essential Skills for Data Analytics
+
+- **Statistical Analysis** - Understanding data patterns and trends
+- **Programming** - Python, R, SQL for data manipulation
+- **Visualization** - Creating compelling charts and dashboards
+- **Business Acumen** - Translating data insights into business value
+
+## Popular Tools and Technologies
+
+1. **Python/R** - Programming languages for data analysis
+2. **SQL** - Database querying and data extraction
+3. **Tableau/Power BI** - Business intelligence and visualization
+4. **Excel** - Fundamental tool for data analysis
+
+Start your journey today by learning the fundamentals and practicing with real datasets! 

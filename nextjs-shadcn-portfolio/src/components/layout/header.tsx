@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -80,34 +81,39 @@ export default function Header() {
             ))}
           </div>
 
-          {/* CTA Button - Desktop */}
-          <Button 
-            className="hidden lg:inline-flex" 
-            onClick={(e) => {
-              e.preventDefault();
-              if (typeof window !== 'undefined') {
-                const element = document.querySelector("#contact");
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
+          {/* Desktop Actions */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <ThemeToggle />
+            <Button 
+              onClick={(e) => {
+                e.preventDefault();
+                if (typeof window !== 'undefined') {
+                  const element = document.querySelector("#contact");
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }
-              }
-            }}
-          >
-            Hire Me
-          </Button>
+              }}
+            >
+              Hire Me
+            </Button>
+          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          {/* Mobile Actions */}
+          <div className="lg:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <button
+              className="p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Navigation */}
@@ -124,7 +130,10 @@ export default function Header() {
                   {label}
                 </a>
               ))}
-              <div className="px-4 pt-4">
+              <div className="px-4 pt-4 space-y-3">
+                <div className="flex justify-center">
+                  <ThemeToggle />
+                </div>
                 <Button 
                   className="w-full" 
                   onClick={(e) => {

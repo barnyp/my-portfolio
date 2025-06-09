@@ -1,57 +1,206 @@
-import React from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-// Typed text animation will be handled in a later step (JavaScript functionalities)
+"use client";
 
-interface HeroProps {
-  onPlayVideo: () => void;
-}
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Download, Play, Github, Linkedin, Mail } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import Typed from "typed.js";
 
-const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
-  const typedRoles = "BI Developer, Analytic Engineer, Data Analyst, Data Practitioner, Team Leadership"; // Placeholder for now
+export default function Hero() {
+  const typedRef = useRef<HTMLSpanElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    
+    if (typedRef.current && typeof window !== 'undefined') {
+      const typed = new Typed(typedRef.current, {
+        strings: [
+          "BI Developer",
+          "Analytic Engineer", 
+          "Data Analyst",
+          "Data Practitioner",
+          "Team Leadership"
+        ],
+        typeSpeed: 80,
+        backSpeed: 50,
+        backDelay: 2000,
+        loop: true,
+        showCursor: true,
+        cursorChar: "|",
+      });
+
+      return () => typed.destroy();
+    }
+  }, [mounted]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
-    <section id="home" className="bg-primary d-flex align-items-center py-5" style={{ minHeight: '100vh' }}>
-      <div className="container mx-auto">
-        <div className="row align-items-center"> {/* Using 'row' for Bootstrap-like structure, but this is Tailwind */}
-          <div className="col-lg-5 px-5 pl-lg-0 pb-5 pb-lg-0"> {/* These col-* classes are not Tailwind by default */}
-            <Image
-              src="/img/profile.jpg"
-              alt="Paul Barnabas"
-              width={400}
-              height={400}
-              className="img-fluid w-100 rounded-circle shadow-sm" // rounded-circle is Bootstrap, Tailwind is rounded-full
-              priority
-            />
-          </div>
-          <div className="col-lg-7 text-center text-lg-left">
-               <h3 className="text-white font-weight-normal mb-3">I&apos;m</h3>
-            <h1 className="display-3 text-uppercase text-primary mb-2" style={{ WebkitTextStroke: '2px #ffffff' }}>Paul Barnabas</h1>
-            {/* Typed text output will go here */}
-            <div className="d-inline font-weight-lighter text-white h1">{typedRoles}</div>
-            <div className="d-flex align-items-center justify-content-center justify-content-lg-start pt-5">
-              <Button
-                variant="outline"
+    <section className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/10 flex items-center py-20">
+      <div className="container mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Profile Image - Left Column for Desktop, Top for Mobile */}
+          <motion.div 
+            className="order-1 lg:order-1 flex justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <motion.div
+              className="relative"
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary/20 rounded-full blur-3xl"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.4, 0.7, 0.4]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <div className="relative rounded-full overflow-hidden shadow-2xl ring-4 ring-primary/20 w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/img/profile.jpg"
+                  alt="Paul Barnabas"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Content - Right Column for Desktop, Bottom for Mobile */}
+          <motion.div 
+            className="order-2 lg:order-2 text-center lg:text-left"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={itemVariants}>
+              <h3 className="text-lg lg:text-xl text-primary font-medium mb-3">
+                I'm
+              </h3>
+              <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-primary via-primary to-primary/60 bg-clip-text text-transparent">
+                  Paul Barnabas
+                </span>
+              </h1>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="mb-6">
+              <div className="text-xl lg:text-2xl text-muted-foreground font-light min-h-[2.5rem] flex items-center justify-center lg:justify-start">
+                {mounted ? (
+                  <span ref={typedRef} className="text-primary font-medium"></span>
+                ) : (
+                  <span className="text-primary font-medium">BI Developer</span>
+                )}
+              </div>
+            </motion.div>
+
+            <motion.p 
+              variants={itemVariants}
+              className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8"
+            >
+              Passionate about transforming data into actionable insights. I help businesses make informed decisions through advanced analytics and business intelligence solutions.
+            </motion.p>
+
+            <motion.div 
+              variants={itemVariants} 
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+            >
+              <Button 
                 size="lg"
-                className="mr-5 text-white border-white hover:bg-white hover:text-primary" // Custom styling for outline button on dark bg
+                className="group text-lg px-8 py-6"
                 asChild
               >
-                <a href="https://www.linkedin.com/in/askpaulbarnabas/" target="_blank" rel="noopener noreferrer">Download CV</a>
+                <motion.a
+                  href="https://www.linkedin.com/in/askpaulbarnabas/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Download CV
+                </motion.a>
               </Button>
-              <Button
-                variant="default" // This will be a white button on primary bg if theme is set up that way
+              
+              <Button 
+                variant="outline" 
                 size="lg"
-                onClick={onPlayVideo}
-                className="bg-white text-primary hover:bg-gray-200" // Overriding default shadcn button variant style
+                className="group text-lg px-8 py-6"
+                onClick={() => {
+                  // Video modal functionality can be added here
+                  console.log("Play video clicked");
+                }}
               >
-                Play Video {/* Original had a play icon, we'll use text for now */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center"
+                >
+                  <Play className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+                  Play Video
+                </motion.div>
               </Button>
-            </div>
-          </div>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants}
+              className="flex justify-center lg:justify-start gap-4"
+            >
+              {[
+                { icon: Github, href: "https://github.com/paulbarnabas", label: "GitHub" },
+                { icon: Linkedin, href: "https://linkedin.com/in/askpaulbarnabas", label: "LinkedIn" },
+                { icon: Mail, href: "mailto:paul.barnabas@outlook.com", label: "Email" }
+              ].map(({ icon: Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-full border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
+                  aria-label={label}
+                >
+                  <Icon className="w-6 h-6" />
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

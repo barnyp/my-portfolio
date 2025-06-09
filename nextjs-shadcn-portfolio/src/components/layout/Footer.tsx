@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-blue-600 text-white p-8 text-center">
-      <div>Social Links | Copyright</div>
+    <footer className="container py-4 text-center text-muted-foreground">
+      <p>&copy; 2024 Paul Barnabas. All rights reserved.</p>
     </footer>
   );
-};
-
-export default Footer;
+}

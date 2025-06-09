@@ -10,48 +10,93 @@ const QualificationItem = ({ title, institution, years, description }: { title: 
   </div>
 );
 
-const Qualification = () => {
-  const education = [
-    { title: "Master In CSE", institution: "Cambridge University", years: "2000 - 2050", description: "Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam" },
-    { title: "Master In CSE", institution: "Cambridge University", years: "2000 - 2050", description: "Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam" },
-    { title: "Master In CSE", institution: "Cambridge University", years: "2000 - 2050", description: "Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam" },
-  ];
-
-  const experience = [
-    { title: "Web Designer", institution: "Soft Company", years: "2000 - 2050", description: "Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam" },
-    { title: "Web Designer", institution: "Soft Company", years: "2000 - 2050", description: "Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam" },
-    { title: "Web Designer", institution: "Soft Company", years: "2000 - 2050", description: "Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam" },
-  ];
-
+export default function Qualification() {
   return (
-    <section id="qualification" className="py-16">
-      <div className="container mx-auto px-4"> {/* Added px-4 for container padding */}
-        {/* Heading structure from original site */}
-        <div className="relative flex flex-col items-center justify-center mb-10">
-          <h1 className="text-8xl md:text-9xl uppercase text-gray-200 dark:text-gray-700" style={{ WebkitTextStroke: '1px #dee2e6' }}>Quality</h1> {/* Adjusted for better visibility in light/dark */}
-          <h1 className="absolute text-4xl md:text-5xl uppercase text-primary">Education & Expericence</h1>
-        </div>
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-8"> {/* Tailwind grid for columns, increased gap */}
-          <div> {/* Education Column */}
-            <h3 className="mb-6 text-2xl font-semibold">My Education</h3> {/* Tailwind: text-2xl */}
-            <div className="border-l-2 border-primary pl-6"> {/* Tailwind for border, increased pl */}
-              {education.map((item, index) => (
-                <QualificationItem key={`edu-${index}`} {...item} />
-              ))}
+    <section className="container py-20">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold">Quality</h2>
+        <h3 className="text-xl font-semibold text-primary">
+          Education & Expericence
+        </h3>
+      </div>
+      <div className="grid lg:grid-cols-2 gap-10 mt-10">
+        <div>
+          <h4 className="text-2xl font-bold mb-4">My Education</h4>
+          <div className="border-l-2 border-primary pl-4">
+            <div className="mb-8">
+              <h5 className="font-bold">Master In CSE</h5>
+              <p className="text-muted-foreground">
+                <strong>Cambridge University</strong> | <small>2000 - 2050</small>
+              </p>
+              <p className="text-muted-foreground">
+                Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
+                amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
+                sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam
+              </p>
+            </div>
+            <div className="mb-8">
+              <h5 className="font-bold">Master In CSE</h5>
+              <p className="text-muted-foreground">
+                <strong>Cambridge University</strong> | <small>2000 - 2050</small>
+              </p>
+              <p className="text-muted-foreground">
+                Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
+                amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
+                sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam
+              </p>
+            </div>
+            <div className="mb-8">
+              <h5 className="font-bold">Master In CSE</h5>
+              <p className="text-muted-foreground">
+                <strong>Cambridge University</strong> | <small>2000 - 2050</small>
+              </p>
+              <p className="text-muted-foreground">
+                Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
+                amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
+                sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam
+              </p>
             </div>
           </div>
-          <div> {/* Experience Column */}
-            <h3 className="mb-6 text-2xl font-semibold">My Expericence</h3> {/* Tailwind: text-2xl */}
-            <div className="border-l-2 border-primary pl-6"> {/* Tailwind for border, increased pl */}
-              {experience.map((item, index) => (
-                <QualificationItem key={`exp-${index}`} {...item} />
-              ))}
+        </div>
+        <div>
+          <h4 className="text-2xl font-bold mb-4">My Expericence</h4>
+          <div className="border-l-2 border-primary pl-4">
+            <div className="mb-8">
+              <h5 className="font-bold">Web Designer</h5>
+              <p className="text-muted-foreground">
+                <strong>Soft Company</strong> | <small>2000 - 2050</small>
+              </p>
+              <p className="text-muted-foreground">
+                Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
+                amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
+                sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam
+              </p>
+            </div>
+            <div className="mb-8">
+              <h5 className="font-bold">Web Designer</h5>
+              <p className="text-muted-foreground">
+                <strong>Soft Company</strong> | <small>2000 - 2050</small>
+              </p>
+              <p className="text-muted-foreground">
+                Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
+                amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
+                sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam
+              </p>
+            </div>
+            <div className="mb-8">
+              <h5 className="font-bold">Web Designer</h5>
+              <p className="text-muted-foreground">
+                <strong>Soft Company</strong> | <small>2000 - 2050</small>
+              </p>
+              <p className="text-muted-foreground">
+                Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
+                amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
+                sed ea lorem diam ea lorem eirmod duo sit ipsum stet lorem diam
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Qualification;
+}

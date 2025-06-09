@@ -1,7 +1,18 @@
-import React from 'react';
+import { getAllPosts } from "@/lib/posts";
+import BlogClient from "@/components/sections/blog-client";
 
-const Blog = () => {
-  return <section id="blog" className="py-16"><div>Blog Section</div></section>;
-};
+export default function Blog() {
+  const allPosts = getAllPosts(["title", "date", "slug", "author", "coverImage", "excerpt"]);
 
-export default Blog;
+  // Transform the posts to match the expected interface
+  const transformedPosts = allPosts.map(post => ({
+    title: post.title || '',
+    date: post.date || '',
+    slug: post.slug || '',
+    author: post.author,
+    coverImage: post.coverImage,
+    excerpt: post.excerpt
+  }));
+
+  return <BlogClient posts={transformedPosts} />;
+}

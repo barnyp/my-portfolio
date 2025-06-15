@@ -2,7 +2,7 @@
 title: 'Supercharging Development with MCP and Cursor: A Complete Guide'
 date: '2024-04-15'
 summary: 'Discover how to leverage Model Context Protocol with Cursor IDE to create intelligent, context-aware development workflows.'
-coverImage: '/img/blog-3.jpg'
+coverImage: '/img/blog-1.jpg'
 excerpt: 'Master the integration of MCP with Cursor IDE to unlock unprecedented AI-powered development capabilities and streamlined workflows.'
 ---
 

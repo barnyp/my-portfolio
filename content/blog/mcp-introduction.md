@@ -2,7 +2,7 @@
 title: 'Understanding Model Context Protocol (MCP): The Future of AI Integration'
 date: '2024-04-01'
 summary: 'Deep dive into Model Context Protocol (MCP) and how it revolutionizes AI tool integration and context management.'
-coverImage: '/img/blog-2.jpg'
+coverImage: '/img/blog-3.jpg'
 excerpt: 'Learn about MCP, the groundbreaking protocol that enables seamless AI tool integration and enhanced context management for developers.'
 ---
 

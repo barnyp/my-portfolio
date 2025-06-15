@@ -2,7 +2,7 @@
 title: 'Generative AI: Transforming Business Intelligence and Analytics'
 date: '2024-03-20'
 summary: 'Explore how generative AI is revolutionizing business intelligence, from automated report generation to intelligent data insights.'
-coverImage: '/img/blog-1.jpg'
+coverImage: '/img/blog-2.jpg'
 excerpt: 'Discover the transformative power of generative AI in business intelligence and learn how to leverage AI-driven analytics for competitive advantage.'
 ---
 

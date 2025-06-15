@@ -60,11 +60,11 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {[
-                { href: "#about", label: "About" },
-                { href: "#skills", label: "Skills" },
-                { href: "#portfolio", label: "Portfolio" },
-                { href: "#blog", label: "Blog" },
-                { href: "#contact", label: "Contact" }
+                { href: "/#about", label: "About" },
+                { href: "/#skills", label: "Skills" },
+                { href: "/#portfolio", label: "Portfolio" },
+                { href: "/blog", label: "Blog" },
+                { href: "/contact", label: "Contact" }
               ].map(({ href, label }) => (
                 <li key={href}>
                   <Link 
@@ -95,9 +95,9 @@ export default function Footer() {
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
             &copy; {currentYear} Paul Barnabas. All rights reserved.
           </p>
-          <p className="text-muted-foreground text-sm flex items-center">
+          {/* <p className="text-muted-foreground text-sm flex items-center">
             Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> using Next.js & shadcn/ui
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

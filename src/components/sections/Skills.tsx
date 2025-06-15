@@ -16,8 +16,8 @@ export default function Skills() {
       skills: [
         { name: "Power BI", level: 95, color: "bg-yellow-500" },
         { name: "Tableau", level: 90, color: "bg-blue-500" },
-        { name: "Excel/VBA", level: 95, color: "bg-green-500" },
-        { name: "Google Analytics", level: 85, color: "bg-orange-500" }
+        { name: "Excel", level: 95, color: "bg-green-500" },
+        { name: "SAP Analytics Cloud", level: 85, color: "bg-orange-500" }
       ]
     },
     {
@@ -26,18 +26,18 @@ export default function Skills() {
       skills: [
         { name: "SQL", level: 95, color: "bg-purple-500" },
         { name: "Python", level: 90, color: "bg-blue-600" },
-        { name: "Apache Airflow", level: 80, color: "bg-red-500" },
+        { name: "Dagster", level: 80, color: "bg-red-500" },
         { name: "ETL/ELT", level: 88, color: "bg-indigo-500" }
       ]
     },
     {
-      title: "Machine Learning",
+      title: "Generative AI",
       icon: Brain,
       skills: [
-        { name: "Scikit-learn", level: 85, color: "bg-orange-600" },
-        { name: "Pandas/NumPy", level: 90, color: "bg-teal-500" },
-        { name: "Statistical Analysis", level: 88, color: "bg-pink-500" },
-        { name: "Predictive Modeling", level: 82, color: "bg-emerald-500" }
+        { name: "Langchain", level: 85, color: "bg-orange-600" },
+        { name: "OpenAI", level: 90, color: "bg-teal-500" },
+        { name: "Anthropic", level: 88, color: "bg-pink-500" },
+        { name: "Gemini", level: 82, color: "bg-emerald-500" }
       ]
     },
     {

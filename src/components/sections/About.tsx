@@ -49,8 +49,7 @@ export default function About() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-        >
+          viewport={{ once: true }}        >
           {/* Image Section */}
           <motion.div 
             className="flex justify-center"

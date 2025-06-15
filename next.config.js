@@ -6,7 +6,7 @@ module.exports = {
   },
   // Suppress hydration warnings for browser extensions
   reactStrictMode: false,
-  experimental: {
-    suppressHydrationWarnings: true,
-  },
+  // experimental: {
+  //   suppressHydrationWarnings: true,
+  // },
 } 

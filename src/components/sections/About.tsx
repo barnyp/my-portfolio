@@ -32,10 +32,10 @@ export default function About() {
 
   const personalInfo = [
     { label: "Name", value: "Paul Barnabas" },
-    { label: "Birthday", value: "January 19" },
+    // { label: "Birthday", value: "January 19" },
     { label: "Degree", value: "Bachelor's Degree" },
     { label: "Experience", value: "10+ Years" },
-    { label: "Phone", value: "+234 803 775 4613" },
+    // { label: "Phone", value: "+234 803 775 4613" },
     { label: "Email", value: "paul.barnabas@outlook.com" }
   ];
 

@@ -17,8 +17,8 @@ Data analytics is the science of analyzing raw data to make conclusions about in
 
 ## Popular Tools and Technologies
 
-1. **Python/R** - Programming languages for data analysis
-2. **SQL** - Database querying and data extraction
+1. **Python/R** - Programming languages for data anPalysis
+2. **SQL** - Database querying and data extractionπ
 3. **Tableau/Power BI** - Business intelligence and visualization
 4. **Excel** - Fundamental tool for data analysis
 

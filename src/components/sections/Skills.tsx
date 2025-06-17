@@ -27,7 +27,7 @@ export default function Skills() {
         { name: "SQL", level: 95, color: "bg-purple-500" },
         { name: "Python", level: 90, color: "bg-blue-600" },
         { name: "Dagster", level: 80, color: "bg-red-500" },
-        { name: "ETL/ELT", level: 88, color: "bg-indigo-500" }
+        { name: "Data Warehouse", level: 88, color: "bg-indigo-500" }
       ]
     },
     {
@@ -176,8 +176,8 @@ export default function Skills() {
           {[
             { icon: Code, label: "Programming Languages", count: "5+" },
             { icon: Database, label: "Database Systems", count: "8+" },
-            { icon: BarChart3, label: "Analytics Tools", count: "10+" },
-            { icon: Wrench, label: "Years Experience", count: "7+" }
+            { icon: BarChart3, label: "Analytics Tools", count: "9+" },
+            { icon: Wrench, label: "Years Experience", count: "10+" }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}

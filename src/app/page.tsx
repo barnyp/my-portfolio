@@ -5,7 +5,7 @@ import Skills from "@/components/sections/Skills";
 import Services from "@/components/sections/Services";
 // import Portfolio from "@/components/sections/Portfolio";
 import Testimonial from "@/components/sections/testimonial";
-import BlogNew from "@/components/sections/BlogNew";
+// import BlogNew from "@/components/sections/BlogNew";
 
 export default function Home() {
   return (
@@ -31,7 +31,6 @@ export default function Home() {
       <section id="testimonial">
         <Testimonial />
       </section>
-      <BlogNew />
     </main>
   );
 } 

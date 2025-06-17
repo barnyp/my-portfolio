@@ -121,7 +121,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
                     whileHover={{ x: 4 }}
                     transition={{ duration: 0.2 }}
                   >
-                    →
+                    &rarr;
                   </motion.span>
                 </Button>
               </Link>

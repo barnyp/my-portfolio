@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function Contact() {
   });
   const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -30,13 +32,22 @@ export default function Contact() {
     setIsLoading(true);
     setStatus("Sending...");
 
+    if (!executeRecaptcha) {
+      setStatus("CAPTCHA not ready");
+      setIsLoading(false);
+      return;
+    }
+
+    // Get the token for the 'contact_form' action
+    const recaptchaToken = await executeRecaptcha('contact_form');
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, recaptchaToken }),
       });
 
       if (res.ok) {
@@ -57,19 +68,19 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email",
-      content: "paul.barnabas@outlook.com",
-      href: "mailto:paul.barnabas@outlook.com"
+      content: "notify@paulbarnabas.com",
+      href: "mailto:notify@paulbarnabas.com"
     },
-    {
-      icon: Phone,
-      title: "Phone",
-      content: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
-    },
+    // {
+    //   icon: Phone,
+    //   title: "Phone",
+    //   content: "+234 813 555 5555",
+    //   href: "tel:+2348135555555"
+    // },
     {
       icon: MapPin,
       title: "Location",
-      content: "San Francisco, CA",
+      content: "Lagos, Nigeria",
       href: "#"
     }
   ];
@@ -96,7 +107,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="container py-20">
+    <section className="container py-20 pt-20">
       <motion.div 
         className="text-center mb-12"
         initial={{ opacity: 0, y: 20 }}

@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 
 interface Post {
@@ -77,13 +77,15 @@ const Blog8 = ({
                     </div>
                   </div>
                   <h3 className="text-xl font-semibold md:text-2xl lg:text-3xl">
-                    <a
-                      href={post.url}
-                      target="_blank"
-                      className="hover:underline"
-                    >
-                      {post.title}
-                    </a>
+                    {post.url.startsWith("/blog/") ? (
+                      <Link href={post.url} className="hover:underline">
+                        {post.title}
+                      </Link>
+                    ) : (
+                      <a href={post.url} target="_blank" className="hover:underline">
+                        {post.title}
+                      </a>
+                    )}
                   </h3>
                   <p className="mt-4 text-muted-foreground md:mt-5">
                     {post.summary}
@@ -96,26 +98,41 @@ const Blog8 = ({
                     </span>
                   </div>
                   <div className="mt-6 flex items-center space-x-2 md:mt-8">
-                    <a
-                      href={post.url}
-                      target="_blank"
-                      className="inline-flex items-center font-semibold hover:underline md:text-base"
-                    >
-                      <span>Read more</span>
-                      <ArrowRight className="ml-2 size-4 transition-transform" />
-                    </a>
+                    {post.url.startsWith("/blog/") ? (
+                      <Link href={post.url} className="inline-flex items-center font-semibold hover:underline md:text-base">
+                        <span>Read more</span>
+                        <ArrowRight className="ml-2 size-4 transition-transform" />
+                      </Link>
+                    ) : (
+                      <a href={post.url} target="_blank" className="inline-flex items-center font-semibold hover:underline md:text-base">
+                        <span>Read more</span>
+                        <ArrowRight className="ml-2 size-4 transition-transform" />
+                      </a>
+                    )}
                   </div>
                 </div>
                 <div className="order-first sm:order-last sm:col-span-5">
-                  <a href={post.url} target="_blank" className="block">
-                    <div className="aspect-[16/9] overflow-clip rounded-lg border border-border">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-opacity duration-200 fade-in hover:opacity-70"
-                      />
-                    </div>
-                  </a>
+                  {post.url.startsWith("/blog/") ? (
+                    <Link href={post.url} className="block">
+                      <div className="aspect-[16/9] overflow-clip rounded-lg border border-border">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-opacity duration-200 fade-in hover:opacity-70"
+                        />
+                      </div>
+                    </Link>
+                  ) : (
+                    <a href={post.url} target="_blank" className="block">
+                      <div className="aspect-[16/9] overflow-clip rounded-lg border border-border">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-opacity duration-200 fade-in hover:opacity-70"
+                        />
+                      </div>
+                    </a>
+                  )}
                 </div>
               </div>
             </Card>

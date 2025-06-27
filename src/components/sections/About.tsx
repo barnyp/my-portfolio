@@ -17,9 +17,9 @@ interface PersonalInfoItem {
 
 /**
  * About component that displays personal information and background
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export default function About(): JSX.Element {
+export default function About(): React.ReactElement {
   /**
    * Animation variants for container elements
    */

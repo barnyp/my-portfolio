@@ -14,9 +14,9 @@ interface SectionHeaderProps {
 /**
  * Reusable section header component with animated title and subtitle
  * @param props - Component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export default function SectionHeader({ title, subtitle, className = "" }: SectionHeaderProps): JSX.Element {
+export default function SectionHeader({ title, subtitle, className = "" }: SectionHeaderProps): React.ReactElement {
   /**
    * Animation variants for background text
    */

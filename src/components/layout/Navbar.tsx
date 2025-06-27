@@ -22,9 +22,9 @@ interface NavItem {
 
 /**
  * Navbar component for site navigation
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-const Navbar = (): JSX.Element => {
+const Navbar = (): React.ReactElement => {
   /**
    * Navigation items list
    */

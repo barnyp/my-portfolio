@@ -39,9 +39,9 @@ interface PortfolioButtonProps {
 
 /**
  * Portfolio section component that displays a grid of projects with animations
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export default function Portfolio(): JSX.Element {
+export default function Portfolio(): React.ReactElement {
   const portfolioItems: PortfolioItem[] = [
     {
       id: 1,

@@ -24,9 +24,9 @@ interface ThemeContextType {
 
 /**
  * Theme toggle component that allows switching between light, dark, and auto themes
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export function ThemeToggle(): JSX.Element {
+export function ThemeToggle(): React.ReactElement {
   const { setTheme, theme } = useTheme() as ThemeContextType;
 
   return (

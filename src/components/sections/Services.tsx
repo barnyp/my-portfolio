@@ -16,9 +16,9 @@ interface ServiceItem {
 
 /**
  * Services component displaying the services offered
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export default function Services(): JSX.Element {
+export default function Services(): React.ReactElement {
   const serviceItems: ServiceItem[] = [
     {
       icon: BarChart2,

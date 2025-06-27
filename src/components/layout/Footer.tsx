@@ -24,9 +24,9 @@ interface SocialLink {
 
 /**
  * Footer component containing site links, social media, and copyright information
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export default function Footer(): JSX.Element {
+export default function Footer(): React.ReactElement {
   const currentYear = new Date().getFullYear();
 
   /**

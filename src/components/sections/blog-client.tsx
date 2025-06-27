@@ -24,7 +24,7 @@ interface BlogClientProps {
   posts: Post[];
 }
 
-export default function BlogClient({ posts }: BlogClientProps): JSX.Element {
+export default function BlogClient({ posts }: BlogClientProps): React.ReactElement {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {

@@ -21,9 +21,9 @@ interface Testimonial {
 
 /**
  * Testimonials component displaying client testimonials
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export default function Testimonials(): JSX.Element {
+export default function Testimonials(): React.ReactElement {
   /**
    * Animation variants for container elements
    */

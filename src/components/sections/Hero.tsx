@@ -7,7 +7,7 @@ import { Download, Play, Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 
-export default function Hero(): JSX.Element {
+export default function Hero(): React.ReactElement {
   const typedRef = useRef<HTMLSpanElement>(null);
   const [mounted, setMounted] = useState<boolean>(false);
 

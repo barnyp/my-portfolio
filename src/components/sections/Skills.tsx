@@ -34,7 +34,7 @@ interface SkillStat {
   count: string;
 }
 
-export default function Skills(): JSX.Element {
+export default function Skills(): React.ReactElement {
   const [isVisible, setIsVisible] = useState(false);
 
   const skillCategories: SkillCategory[] = [

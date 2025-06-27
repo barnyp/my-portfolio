@@ -32,7 +32,7 @@ interface ApiResponse {
   error?: string;
 }
 
-export default function Contact(): JSX.Element {
+export default function Contact(): React.ReactElement {
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",

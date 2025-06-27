@@ -53,7 +53,7 @@ playwright-report.html
 playwright-report.zip
 test-results/
 
-docs/
+# docs/
 global_rules.md
 .windsurfrules
 jest.config.js

@@ -28,8 +28,8 @@ export default function Header() {
     { href: "/#qualification", label: "Experience", isExternal: true },
     { href: "/#skills", label: "Skills", isExternal: true },
     { href: "/#services", label: "Services", isExternal: true },
-    { href: "/#portfolio", label: "Portfolio", isExternal: true },
-    { href: "/#testimonial", label: "Reviews", isExternal: true },
+    // { href: "/#portfolio", label: "Portfolio", isExternal: true },
+    { href: "/#testimonials", label: "Testimonials", isExternal: true },
     { href: "/blog", label: "Blog", isExternal: true },
     { href: "/contact", label: "Contact", isExternal: true }
   ];

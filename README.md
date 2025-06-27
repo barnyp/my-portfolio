@@ -1,6 +1,6 @@
 # Personal Portfolio Website
 
-A modern, responsive portfolio website built with Next.js, shadcn/ui, and Tailwind CSS. Features a dynamic blog system, functional contact form, and beautiful UI components.
+A modern, responsive portfolio website built with Next.js 15, React 19, shadcn/ui, and Tailwind CSS. Features a dynamic blog system, functional contact form, beautiful UI components, and production-ready Docker deployment for Coolify.
 
 ## ✨ Features
 
@@ -14,20 +14,22 @@ A modern, responsive portfolio website built with Next.js, shadcn/ui, and Tailwi
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Framework**: [Next.js 15](https://nextjs.org/) with App Router and React 19
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/) with strict typing
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Blog**: Markdown with [gray-matter](https://github.com/jonschlinkert/gray-matter) and [remark](https://remark.js.org/)
 - **Email**: [Resend](https://resend.com/) with [React Email](https://react.email/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: Ready for Vercel, Netlify, or any Node.js hosting
+- **Deployment**: Docker containerization for Coolify, also ready for Vercel or Netlify
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
+- Node.js 20+ (Node 20-alpine used for Docker image)
 - npm, yarn, or pnpm
 - Resend API key (for contact form functionality)
+- Docker (optional, for containerization)
+- Coolify account (optional, for deployment)
 
 ## 🛠️ Installation & Setup
 
@@ -71,32 +73,40 @@ A modern, responsive portfolio website built with Next.js, shadcn/ui, and Tailwi
 ## 📁 Project Structure
 
 ```
-nextjs-shadcn-portfolio/
-├── public/
-│   └── img/                    # Images and assets
+my-portfolio/
+├── public/                    # Public assets
+│   └── img/                   # Images and assets
 ├── src/
 │   ├── app/
-│   │   ├── api/contact/        # Contact form API endpoint
-│   │   ├── blog/               # Blog pages and routing
-│   │   ├── contact/            # Contact page
-│   │   ├── globals.css         # Global styles
-│   │   ├── layout.tsx          # Root layout
-│   │   └── page.tsx            # Homepage
+│   │   ├── api/contact/       # Contact form API endpoint
+│   │   ├── blog/              # Blog pages and routing
+│   │   ├── contact/           # Contact page
+│   │   ├── globals.css        # Global styles
+│   │   ├── layout.tsx         # Root layout
+│   │   └── page.tsx           # Homepage
 │   ├── components/
-│   │   ├── emails/             # Email templates
-│   │   ├── layout/             # Layout components (Header, Footer)
-│   │   ├── sections/           # Page sections (Hero, About, Skills, etc.)
-│   │   ├── shared/             # Shared components
-│   │   └── ui/                 # shadcn/ui components
+│   │   ├── emails/            # Email templates
+│   │   ├── layout/            # Layout components (Header, Footer)
+│   │   ├── sections/          # Page sections (Hero, About, Skills, etc.)
+│   │   ├── shared/            # Shared components
+│   │   └── ui/                # shadcn/ui components
 │   └── lib/
-│       ├── posts.ts            # Blog post utilities
-│       ├── utils.ts            # Utility functions
-│       └── markdownToHtml.ts   # Markdown processing
+│       ├── posts.ts           # Blog post utilities
+│       ├── utils.ts           # Utility functions
+│       └── markdownToHtml.ts  # Markdown processing
 ├── content/
-│   └── blog/                   # Markdown blog posts
-├── tailwind.config.ts          # Tailwind configuration
-├── next.config.js              # Next.js configuration
-└── package.json
+│   └── blog/                  # Markdown blog posts
+├── docs/                      # Project documentation
+│   ├── PRD.md                 # Product requirements
+│   ├── arch-diagrams.md       # Architecture diagrams
+│   ├── api-specs.md           # API specifications
+│   ├── lessons-learned.md     # Development insights
+│   └── work-log.md            # Development progress log
+├── Dockerfile                 # Docker configuration for production
+├── fix-jsx-types.sh           # Script to fix TypeScript JSX types
+├── tailwind.config.ts         # Tailwind configuration
+├── next.config.js             # Next.js configuration (with standalone output)
+└── package.json               # Dependencies and scripts
 ```
 
 ## 📝 Content Management
@@ -179,6 +189,22 @@ The project works with any Node.js hosting platform:
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+
+### Docker & Deployment
+
+#### Local Docker Testing
+- `docker build -t my-portfolio .` - Build the Docker image
+- `docker run -p 3000:3000 my-portfolio` - Run the container locally
+
+#### Coolify Deployment
+1. Push code to your Git repository
+2. In Coolify:
+   - Create new application
+   - Select repository
+   - Build Pack: Dockerfile
+   - Port Exposes: 3000
+   - Configure environment variables
+   - Deploy
 
 ## 🔧 Environment Variables
 

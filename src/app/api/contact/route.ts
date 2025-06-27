@@ -1,30 +1,35 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 // import { ContactFormEmail } from "@/components/emails/contact-form-email"; // Not used directly in server context
+import featureFlags from "@/lib/feature-flags";
 
 export async function POST(request: Request) {
   const { name, email, subject, message, recaptchaToken } = await request.json();
 
-  // 1. Validate reCAPTCHA token
-  if (!recaptchaToken) {
-    return NextResponse.json({ error: "Missing reCAPTCHA token." }, { status: 400 });
-  }
+  // 1. Validate reCAPTCHA token (unless bypassed in test environment)
+  if (!featureFlags.bypassRecaptcha) {
+    if (!recaptchaToken) {
+      return NextResponse.json({ error: "Missing reCAPTCHA token." }, { status: 400 });
+    }
 
-  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-  if (!secretKey) {
-    return NextResponse.json({ error: "reCAPTCHA secret key not configured." }, { status: 500 });
-  }
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    if (!secretKey) {
+      return NextResponse.json({ error: "reCAPTCHA secret key not configured." }, { status: 500 });
+    }
 
-  // Verify token with Google
-  const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `secret=${secretKey}&response=${recaptchaToken}`,
-  });
-  const verifyData = await verifyRes.json();
+    // Verify token with Google
+    const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${secretKey}&response=${recaptchaToken}`,
+    });
+    const verifyData = await verifyRes.json();
 
-  if (!verifyData.success || (verifyData.score !== undefined && verifyData.score < 0.5)) {
-    return NextResponse.json({ error: "Failed reCAPTCHA verification." }, { status: 400 });
+    if (!verifyData.success || (verifyData.score !== undefined && verifyData.score < 0.5)) {
+      return NextResponse.json({ error: "Failed reCAPTCHA verification." }, { status: 400 });
+    }
+  } else {
+    console.log("Bypassing reCAPTCHA verification in test environment");
   }
 
   // 2. Setup nodemailer transporter for SMTP
@@ -48,8 +53,15 @@ export async function POST(request: Request) {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    return NextResponse.json({ message: "Email sent successfully!" });
+    // Use mock email service in test environment
+    if (featureFlags.useMockEmailService) {
+      console.log("Using mock email service in test environment");
+      console.log("Email would have been sent with:", mailOptions);
+      return NextResponse.json({ message: "Email sent successfully (mock)!" });
+    } else {
+      await transporter.sendMail(mailOptions);
+      return NextResponse.json({ message: "Email sent successfully!" });
+    }
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : error });
   }

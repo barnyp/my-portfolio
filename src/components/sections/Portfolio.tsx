@@ -3,11 +3,46 @@
 import React from 'react';
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import { getTestAttributes } from "@/lib/feature-flags";
 import { ExternalLink, Github, Eye } from "lucide-react";
+import SectionHeader from "@/components/shared/section-header";
 
-export default function Portfolio() {
-  const portfolioItems = [
+/**
+ * Portfolio item category type for type safety
+ */
+type PortfolioCategory = 'Analytics' | 'Engineering' | 'Machine Learning' | 'Automation' | string;
+
+/**
+ * Interface for portfolio item data
+ */
+interface PortfolioItem {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  category: PortfolioCategory;
+  tech: string[];
+  liveUrl: string;
+  githubUrl: string;
+}
+
+/**
+ * Type for button links in portfolio items
+ */
+interface PortfolioButtonProps {
+  href: string;
+  icon: React.ReactNode;
+  text: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+}
+
+/**
+ * Portfolio section component that displays a grid of projects with animations
+ * @returns JSX.Element
+ */
+export default function Portfolio(): JSX.Element {
+  const portfolioItems: PortfolioItem[] = [
     {
       id: 1,
       title: "Data Analytics Dashboard",
@@ -70,7 +105,7 @@ export default function Portfolio() {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -80,7 +115,7 @@ export default function Portfolio() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -92,21 +127,18 @@ export default function Portfolio() {
   };
 
   return (
-    <section className="container py-20">
-      <motion.div 
-        className="text-center mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl font-bold">Portfolio</h2>
-        <h3 className="text-xl font-semibold text-primary mt-2">My Recent Work</h3>
+    <section className="container py-20" {...getTestAttributes('portfolio-section')}>
+      <SectionHeader 
+        title="Portfolio" 
+        subtitle="My Recent Work" 
+        {...getTestAttributes('portfolio-header')} 
+      />
+      <div className="text-center mb-12">
         <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
           Here are some of my recent projects showcasing my expertise in data analytics, 
           business intelligence, and data engineering.
         </p>
-      </motion.div>
+      </div>
 
       <motion.div 
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -121,6 +153,7 @@ export default function Portfolio() {
             variants={itemVariants}
             whileHover={{ y: -8 }}
             className="group bg-card border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+            data-testid={`portfolio-item-${item.id}`}
           >
             <div className="relative overflow-hidden">
               <Image

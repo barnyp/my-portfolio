@@ -28,9 +28,12 @@ export default function Home() {
       {/* <section id="portfolio">
         <Portfolio />
       </section> */}
-      <section id="testimonial">
+      <section id="testimonials">
         <Testimonial />
       </section>
+      {/* <section id="blog">
+        <BlogNew />
+      </section> */}
     </main>
   );
 } 

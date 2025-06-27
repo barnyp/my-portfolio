@@ -1,15 +1,43 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import { getTestAttributes, getTestAttributesForItem } from "@/lib/feature-flags";
 import { useState, useEffect } from "react";
-import { Database, BarChart3, Code, Brain, Users, Wrench } from "lucide-react";
+import { Database, BarChart3, Code, Brain, Users, Wrench, LucideIcon } from "lucide-react";
 import SectionHeader from "@/components/shared/section-header";
 
-export default function Skills() {
+/**
+ * Interface for individual skill data
+ */
+interface Skill {
+  name: string;
+  level: number;
+  color: string;
+}
+
+/**
+ * Interface for skill category
+ */
+interface SkillCategory {
+  title: string;
+  icon: LucideIcon;
+  skills: Skill[];
+}
+
+/**
+ * Interface for skill statistics
+ */
+interface SkillStat {
+  icon: LucideIcon;
+  label: string;
+  count: string;
+}
+
+export default function Skills(): JSX.Element {
   const [isVisible, setIsVisible] = useState(false);
 
-  const skillCategories = [
+  const skillCategories: SkillCategory[] = [
     {
       title: "Data Analytics",
       icon: BarChart3,
@@ -52,7 +80,7 @@ export default function Skills() {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -62,7 +90,7 @@ export default function Skills() {
     }
   };
 
-  const categoryVariants = {
+  const categoryVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
@@ -73,7 +101,7 @@ export default function Skills() {
     }
   };
 
-  const skillVariants = {
+  const skillVariants: Variants = {
     hidden: { x: -20, opacity: 0 },
     visible: {
       x: 0,
@@ -85,7 +113,9 @@ export default function Skills() {
   };
 
   return (
-    <section className="py-20">
+    <section 
+      className="py-20"
+      {...getTestAttributes('skills-section')}>
       <div className="container mx-auto px-4">
         <SectionHeader title="Skills" subtitle="My Skills" />
         
@@ -127,7 +157,8 @@ export default function Skills() {
                 <motion.div
                   key={skill.name}
                   variants={skillVariants}
-                  className="space-y-2"
+                  className="space-y-2 skill-item"
+                  {...getTestAttributesForItem('skill-item', skillIndex)}
                 >
                   <div className="flex justify-between items-center">
                     <h6 className="font-semibold text-sm">{skill.name}</h6>
@@ -144,7 +175,8 @@ export default function Skills() {
                   <div className="relative">
                     <Progress 
                       value={isVisible ? skill.level : 0}
-                      className="h-3"
+                      className="h-3 skill-progress"
+                      data-value={skill.level}
                     />
                     <motion.div
                       className={`absolute top-0 left-0 h-3 rounded-full ${skill.color}`}
@@ -178,7 +210,7 @@ export default function Skills() {
             { icon: Database, label: "Database Systems", count: "8+" },
             { icon: BarChart3, label: "Analytics Tools", count: "9+" },
             { icon: Wrench, label: "Years Experience", count: "10+" }
-          ].map((stat, index) => (
+          ].map((stat: SkillStat, index: number) => (
             <motion.div
               key={stat.label}
               className="text-center"

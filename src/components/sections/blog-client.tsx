@@ -3,9 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Calendar, Clock } from "lucide-react";
 
+/**
+ * Interface for blog post data
+ */
 interface Post {
   title: string;
   date: string;
@@ -13,14 +16,16 @@ interface Post {
   author?: string;
   coverImage?: string;
   excerpt?: string;
+  readTime?: string;
+  categories?: string[];
 }
 
 interface BlogClientProps {
   posts: Post[];
 }
 
-export default function BlogClient({ posts }: BlogClientProps) {
-  const containerVariants = {
+export default function BlogClient({ posts }: BlogClientProps): JSX.Element {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -30,7 +35,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -97,7 +102,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
                 </span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
-                  2 min read
+                  {post.readTime || "2 min read"}
                 </span>
               </div>
               

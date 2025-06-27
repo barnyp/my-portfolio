@@ -6,6 +6,8 @@ module.exports = {
   },
   // Suppress hydration warnings for browser extensions
   reactStrictMode: false,
+  // Enable standalone output for Docker deployment
+  output: 'standalone',
   // experimental: {
   //   suppressHydrationWarnings: true,
   // },

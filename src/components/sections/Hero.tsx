@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Download, Play, Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 
-export default function Hero() {
+export default function Hero(): JSX.Element {
   const typedRef = useRef<HTMLSpanElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     setMounted(true);
     
     if (typedRef.current && typeof window !== 'undefined') {
@@ -33,27 +33,26 @@ export default function Hero() {
 
       return () => typed.destroy();
     }
+    return undefined;
   }, [mounted]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.2
       }
     }
   };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      y: 0,
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.5
       }
     }
   };

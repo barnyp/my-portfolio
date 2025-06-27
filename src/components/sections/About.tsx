@@ -3,11 +3,27 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
+import { getTestAttributes } from '@/lib/feature-flags';
 import SectionHeader from '@/components/shared/section-header';
 
-export default function About() {
-  const containerVariants = {
+/**
+ * Interface for personal information items
+ */
+interface PersonalInfoItem {
+  label: string;
+  value: string;
+}
+
+/**
+ * About component that displays personal information and background
+ * @returns JSX.Element
+ */
+export default function About(): JSX.Element {
+  /**
+   * Animation variants for container elements
+   */
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -18,7 +34,10 @@ export default function About() {
     }
   };
 
-  const itemVariants = {
+  /**
+   * Animation variants for individual items
+   */
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
@@ -30,7 +49,10 @@ export default function About() {
     }
   };
 
-  const personalInfo = [
+  /**
+   * Personal information data to display
+   */
+  const personalInfo: PersonalInfoItem[] = [
     { label: "Name", value: "Paul Barnabas" },
     // { label: "Birthday", value: "January 19" },
     { label: "Degree", value: "Bachelor's Degree" },
@@ -40,7 +62,9 @@ export default function About() {
   ];
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section 
+      className="py-20 bg-muted/30"
+      {...getTestAttributes('about-section')}>
       <div className="container mx-auto px-4">
         <SectionHeader title="About" subtitle="About Me" />
         
@@ -94,7 +118,7 @@ export default function About() {
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               variants={itemVariants}
             >
-              {personalInfo.map(({ label, value }, index) => (
+              {personalInfo.map(({ label, value }: PersonalInfoItem, index: number) => (
                 <motion.div 
                   key={label}
                   className="flex flex-col space-y-1 p-3 rounded-lg bg-background/50 hover:bg-background transition-colors"

@@ -4,22 +4,50 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { motion, Variants } from "framer-motion";
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, LucideIcon } from "lucide-react";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import featureFlags, { getTestAttributes } from '@/lib/feature-flags';
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
+// Define explicit interfaces for form data and API responses
+interface ContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface ContactInfo {
+  icon: LucideIcon;
+  title: string;
+  content: string;
+  href: string;
+}
+
+type StatusType = "" | "Sending..." | "success" | "error" | "CAPTCHA not ready";
+
+interface ApiResponse {
+  success?: boolean;
+  message?: string;
+  error?: string;
+}
+
+export default function Contact(): JSX.Element {
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     subject: "",
     message: ""
   });
-  const [status, setStatus] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<StatusType>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  /**
+   * Handle input changes for form fields
+   * @param e - Change event from input or textarea elements
+   */
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -27,19 +55,33 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  /**
+   * Handle form submission with reCAPTCHA validation
+   * @param e - Form submission event
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
     setStatus("Sending...");
 
-    if (!executeRecaptcha) {
-      setStatus("CAPTCHA not ready");
-      setIsLoading(false);
-      return;
+    // Handle recaptcha based on feature flags
+    let recaptchaToken = "";
+    
+    if (featureFlags.bypassRecaptcha) {
+      // In test mode, use a mock token
+      console.log("Using mock reCAPTCHA token in test environment");
+      recaptchaToken = "test-token-for-e2e-tests";
+    } else {
+      // In production, use the real reCAPTCHA
+      if (!executeRecaptcha) {
+        setStatus("CAPTCHA not ready");
+        setIsLoading(false);
+        return;
+      }
+      
+      // Get the token for the 'contact_form' action
+      recaptchaToken = await executeRecaptcha('contact_form');
     }
-
-    // Get the token for the 'contact_form' action
-    const recaptchaToken = await executeRecaptcha('contact_form');
 
     try {
       const res = await fetch("/api/contact", {
@@ -50,6 +92,8 @@ export default function Contact() {
         body: JSON.stringify({ ...formData, recaptchaToken }),
       });
 
+      const data: ApiResponse = await res.json();
+      
       if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", subject: "", message: "" });
@@ -57,6 +101,7 @@ export default function Contact() {
         setStatus("error");
       }
     } catch (error) {
+      console.error("Contact form submission error:", error);
       setStatus("error");
     } finally {
       setIsLoading(false);
@@ -64,7 +109,7 @@ export default function Contact() {
     }
   };
 
-  const contactInfo = [
+  const contactInfo: ContactInfo[] = [
     {
       icon: Mail,
       title: "Email",
@@ -85,7 +130,10 @@ export default function Contact() {
     }
   ];
 
-  const containerVariants = {
+  /**
+   * Animation variants for container elements
+   */
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -95,7 +143,10 @@ export default function Contact() {
     }
   };
 
-  const itemVariants = {
+  /**
+   * Animation variants for individual items
+   */
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -122,7 +173,7 @@ export default function Contact() {
         </p>
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto" {...getTestAttributes('contact-section')}>
         {/* Contact Information */}
         <motion.div
           className="space-y-8"
@@ -183,7 +234,7 @@ export default function Contact() {
           viewport={{ once: true }}
         >
           <div className="bg-card border rounded-lg p-8 shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" {...getTestAttributes('contact-form')}>
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -196,6 +247,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     className="h-12"
+                    {...getTestAttributes('contact-name')}
                   />
                 </motion.div>
                 <motion.div
@@ -205,11 +257,12 @@ export default function Contact() {
                   <Input
                     name="email"
                     type="email"
-                    placeholder="Your Email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    placeholder="Your Email"
                     required
                     className="h-12"
+                    {...getTestAttributes('contact-email')}
                   />
                 </motion.div>
               </div>
@@ -219,12 +272,13 @@ export default function Contact() {
                 transition={{ duration: 0.2 }}
               >
                 <Input
+                  required
                   name="subject"
-                  placeholder="Subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  required
+                  placeholder="Subject"
                   className="h-12"
+                  {...getTestAttributes('contact-subject')}
                 />
               </motion.div>
               
@@ -233,12 +287,13 @@ export default function Contact() {
                 transition={{ duration: 0.2 }}
               >
                 <Textarea
+                  required
                   name="message"
-                  placeholder="Your Message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  required
-                  className="min-h-[120px] resize-none"
+                  placeholder="Your Message"
+                  className="min-h-[150px] resize-none"
+                  {...getTestAttributes('contact-message')}
                 />
               </motion.div>
               
@@ -250,6 +305,7 @@ export default function Contact() {
                   type="submit" 
                   className="w-full h-12 text-lg group"
                   disabled={isLoading}
+                  {...getTestAttributes('contact-submit')}
                 >
                   {isLoading ? (
                     <motion.div
@@ -275,13 +331,19 @@ export default function Contact() {
                 className="mt-4"
               >
                 {status === "success" && (
-                  <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg">
+                  <div 
+                    className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg"
+                    {...getTestAttributes('contact-success-message')}
+                  >
                     <CheckCircle className="w-5 h-5" />
                     <span>Message sent successfully! I'll get back to you soon.</span>
                   </div>
                 )}
                 {status === "error" && (
-                  <div className="flex items-center gap-2 text-red-600 bg-red-50 p-3 rounded-lg">
+                  <div 
+                    className="flex items-center gap-2 text-red-600 bg-red-50 p-3 rounded-lg"
+                    {...getTestAttributes('contact-error-message')}
+                  >
                     <AlertCircle className="w-5 h-5" />
                     <span>Failed to send message. Please try again or email me directly.</span>
                   </div>

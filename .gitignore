@@ -41,3 +41,23 @@ yarn-error.log*
 next-env.d.ts
 
 .poenv/
+
+.vscode/
+.swc/
+
+setup-windsurf.sh
+e2e/
+playwright-report/
+playwright-report.json
+playwright-report.html
+playwright-report.zip
+test-results/
+
+docs/
+global_rules.md
+.windsurfrules
+jest.config.js
+jest.setup.js
+playwright.config.ts
+session_workflow.md    
+windsurf.json

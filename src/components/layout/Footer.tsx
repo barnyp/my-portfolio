@@ -2,14 +2,78 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail, Heart, LucideIcon } from 'lucide-react';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 
-export default function Footer() {
+/**
+ * Interface for footer link item
+ */
+interface FooterLink {
+  href: string;
+  label: string;
+}
+
+/**
+ * Interface for social media link
+ */
+interface SocialLink {
+  href: string;
+  icon: LucideIcon;
+  ariaLabel: string;
+}
+
+/**
+ * Footer component containing site links, social media, and copyright information
+ * @returns JSX.Element
+ */
+export default function Footer(): JSX.Element {
   const currentYear = new Date().getFullYear();
 
+  /**
+   * Quick links for main navigation
+   */
+  const quickLinks: FooterLink[] = [
+    { href: "/#about", label: "About" },
+    { href: "/#skills", label: "Skills" },
+    { href: "/#portfolio", label: "Portfolio" },
+    { href: "/blog", label: "Blog" },
+    { href: "/contact", label: "Contact" }
+  ];
+
+  /**
+   * Social media links
+   */
+  const socialLinks: SocialLink[] = [
+    {
+      href: "https://github.com/paulbarnabas",
+      icon: Github,
+      ariaLabel: "GitHub"
+    },
+    {
+      href: "https://linkedin.com/in/askpaulbarnabas",
+      icon: Linkedin,
+      ariaLabel: "LinkedIn"
+    },
+    {
+      href: "mailto:paul.barnabas@outlook.com",
+      icon: Mail,
+      ariaLabel: "Email"
+    }
+  ];
+
+  /**
+   * Services offered
+   */
+  const services: string[] = [
+    "Business Intelligence",
+    "Data Analytics",
+    "ETL Development",
+    "Dashboard Design",
+    "Data Consulting"
+  ];
+
   return (
-    <footer className="bg-muted/30 border-t">
+    <footer className="bg-muted/30 border-t" data-testid="footer">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -23,31 +87,22 @@ export default function Footer() {
             </p>
             <div className="flex items-center space-x-4">
               <div className="flex space-x-3">
-                <Link 
-                  href="https://github.com/paulbarnabas" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="GitHub"
-                >
-                  <Github className="w-4 h-4" />
-                </Link>
-                <Link 
-                  href="https://linkedin.com/in/askpaulbarnabas" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </Link>
-                <Link 
-                  href="mailto:paul.barnabas@outlook.com"
-                  className="p-2 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Email"
-                >
-                  <Mail className="w-4 h-4" />
-                </Link>
+                {socialLinks.map((link: SocialLink, index: number) => {
+                  const Icon = link.icon;
+                  return (
+                    <Link 
+                      key={link.ariaLabel}
+                      href={link.href} 
+                      target={link.href.startsWith('mailto') ? undefined : "_blank"}
+                      rel={link.href.startsWith('mailto') ? undefined : "noopener noreferrer"}
+                      className="p-2 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-colors"
+                      aria-label={link.ariaLabel}
+                      data-testid={`social-link-${index}`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </Link>
+                  );
+                })}
               </div>
               <div className="border-l border-border pl-4">
                 <ThemeToggle />
@@ -58,20 +113,15 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {[
-                { href: "/#about", label: "About" },
-                { href: "/#skills", label: "Skills" },
-                { href: "/#portfolio", label: "Portfolio" },
-                { href: "/blog", label: "Blog" },
-                { href: "/contact", label: "Contact" }
-              ].map(({ href, label }) => (
-                <li key={href}>
+            <ul className="space-y-2" data-testid="quick-links">
+              {quickLinks.map((link: FooterLink, index: number) => (
+                <li key={link.href}>
                   <Link 
-                    href={href}
+                    href={link.href}
                     className="text-muted-foreground hover:text-primary transition-colors"
+                    data-testid={`quick-link-${index}`}
                   >
-                    {label}
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -81,12 +131,10 @@ export default function Footer() {
           {/* Services */}
           <div>
             <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>Business Intelligence</li>
-              <li>Data Analytics</li>
-              <li>ETL Development</li>
-              <li>Dashboard Design</li>
-              <li>Data Consulting</li>
+            <ul className="space-y-2 text-muted-foreground" data-testid="services-list">
+              {services.map((service: string, index: number) => (
+                <li key={service} data-testid={`service-item-${index}`}>{service}</li>
+              ))}
             </ul>
           </div>
         </div>
